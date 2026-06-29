@@ -312,9 +312,12 @@ app.get('/nifty-option-chain', async (req, res) => {
     });
 
   } catch (e) {
-    res.json({ success: false, message: e.message });
+  console.log("LOGIN ERROR:", e.response?.data || e.message);
+  return {
+    success: false,
+    message: e.response?.data || e.message
+  };
   }
-});
 
 // VIX data
 app.get('/vix', async (req, res) => {
