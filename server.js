@@ -356,7 +356,21 @@ app.post('/logout', (req, res) => {
   session = { token: null, refreshToken: null, feedToken: null, clientId: null, apiKey: null, lastLogin: null };
   res.json({ success: true, message: 'Logged out' });
 });
+// Auto Login on Server Start
+async function autoLogin() {
+  console.log("Starting auto login...");
 
+  const result = await loginAngelOne(
+    process.env.CLIENT_CODE,
+    process.env.PIN,
+    process.env.API_KEY,
+    process.env.TOTP_SECRET
+  );
+
+  console.log("AUTO LOGIN RESULT:", result);
+}
+
+autoLogin();
 app.listen(PORT, () => {
   console.log(`Options Pro Backend running on port ${PORT}`);
 });
